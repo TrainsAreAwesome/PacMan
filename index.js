@@ -1,3 +1,12 @@
+import { fruits } from "./fruits.js";
+
+import { paths } from "./paths.js"
+
+import { walls } from "./walls.js"
+
+let fruit = new fruits()
+let wall = new walls()
+
 let boardParameters = {
   boardWidth: 600,
   boardHeight: 400,
@@ -8,18 +17,16 @@ let boardParameters = {
   innerBoardWidth: 0,
   innerBoardHieght: 0,
   innerBoardArea: 0,
-  bottomOfBoard: 384
+  bottomOfBoard: 384,
 }
 boardParameters.innerBoardWidth = boardParameters.boardWidth - boardParameters.widthOfBoardBorder * 2
 boardParameters.innerBoardHieght = boardParameters.boardHeight - 20
 boardParameters.innerBoardArea = boardParameters.innerBoardHieght * boardParameters.innerBoardWidth
 
-let fruitParameters = {
-  fruitsFromLeftToRight: 20,
-  fruitsFromTopToBottom: 15,
-  height: 10,
-  width: 10
-}
+
+
+
+
 
 let FillOrStroke =
 {
@@ -51,75 +58,70 @@ function roundedRect(ctx, x, y, width, height, radius, fillOrStroke) {
 
 
 
-let createFruit = (ctx, x, y) => {
-  let previousStyle = ctx.fillStyle;
 
-  ctx.fillStyle = 'rgb(255, 0, 0)'
-
-  roundedRect(ctx, x, y, fruitParameters.height, fruitParameters.width, 3.5, FillOrStroke.Fill)
-
-  ctx.fillStyle = previousStyle;
-}
 
 // Brackets, of, division, multiplication, additon, subtraction
 
 
-let createPath = (ctx) => {
-
-  // NOTE: spacePerFruit is not in fruitParameters becease it relies on variables that are in fruitParamaters
-  let timesItterated = 0
-  let spacePerFruit = boardParameters.innerBoardHieght / fruitParameters.fruitsFromTopToBottom;
-  let spacePerFruitX = boardParameters.innerBoardWidth / fruitParameters.fruitsFromLeftToRight;
-  let midPointOfSpaceY = spacePerFruit / 2 - fruitParameters.height / 2
-  let midPointOfSpaceX = spacePerFruitX / 2 - fruitParameters.width /2 
-  let collumNumber = 0
-
-  for (let i = 0; i < fruitParameters.fruitsFromTopToBottom * fruitParameters.fruitsFromLeftToRight; ++i) {
 
 
-    let y = timesItterated * spacePerFruit + boardParameters.boardOffset + boardParameters.widthOfBoardBorder + midPointOfSpaceY
-    let x = collumNumber * spacePerFruitX + boardParameters.boardOffset + boardParameters.widthOfBoardBorder + midPointOfSpaceX
-
-    createFruit(ctx, x, y)
-
-    console.log(y)
-    timesItterated++;
-
-    if (y >= boardParameters.bottomOfBoard) {
-      timesItterated = 0;
-      y = 0,
-      collumNumber ++
-    };
 
 
-  }
-}
 
 let createBoardBorder = (ctx) => {
-
-
-
+  
+  
+  
   roundedRect(ctx, boardParameters.boardOffset, boardParameters.boardOffset, boardParameters.boardWidth, boardParameters.boardHeight, 15);  // outer margin
   let innerBorderX = boardParameters.boardOffset + boardParameters.widthOfBoardBorder;
   let innerBorderY = boardParameters.boardOffset + boardParameters.widthOfBoardBorder
   let innerBorderWidth = boardParameters.boardWidth - boardParameters.widthOfBoardBorder * 2
   let innerBorderHieght = boardParameters.boardHeight - boardParameters.widthOfBoardBorder * 2
-
+  
   roundedRect(ctx, innerBorderX, innerBorderY, innerBorderWidth, innerBorderHieght, 15); // inner margin
 }
 
-window.onload = () => {
 
+let createWalls = (ctx) => {
+
+// walls.js will do this
+
+
+
+
+
+
+
+// // box for the ghosts to spawn in
+// roundedRect(ctx, 235, 205, 115, 15, 4, FillOrStroke.Stroke)
+// roundedRect(ctx, 335, 135, 15, 70, 4, FillOrStroke.Stroke)
+// roundedRect(ctx, 235, 135, 15, 70, 4, FillOrStroke.Stroke)
+
+
+// // walls
+// roundedRect(ctx, 22, 205, 170, 15, 4, FillOrStroke.Stroke);
+// roundedRect(ctx, 405, 125, 15, 100, 4, FillOrStroke.Stroke);
+// roundedRect(ctx, 205, 52, 170, 15, 4, FillOrStroke.Stroke);
+// roundedRect(ctx, 58, 75, 15, 100, 4, FillOrStroke.Stroke);
+}
+
+window.onload = () => { // start of window.onload
+  
   let canvas = document.getElementById("canvas");
   const ctx = canvas.getContext('2d');
-
+  
   function draw() {
     var canvas = document.getElementById('canvas');
     if (canvas.getContext) {
       var ctx = canvas.getContext('2d');
 
       createBoardBorder(ctx);
-      createPath(ctx)
+      let path = new paths();
+      path.createPath(ctx, boardParameters, fruit);
+      createWalls(ctx);
+
+
+     
 
       //   roundedRect(ctx, boardParameters.boardOffset - 7, boardParameters.boardOffset, boardParameters.boardWidth -5, boardParameters.boardHeight,20, 9);
       //   roundedRect(ctx, 53, 53, 49, 33, 10);
