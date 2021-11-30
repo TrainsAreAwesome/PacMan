@@ -69,22 +69,22 @@ function roundedRect(ctx, x, y, width, height, radius, fillOrStroke) {
 
 
 let createBoardBorder = (ctx) => {
-  
-  
-  
+
+
+
   roundedRect(ctx, boardParameters.boardOffset, boardParameters.boardOffset, boardParameters.boardWidth, boardParameters.boardHeight, 15);  // outer margin
   let innerBorderX = boardParameters.boardOffset + boardParameters.widthOfBoardBorder;
   let innerBorderY = boardParameters.boardOffset + boardParameters.widthOfBoardBorder
   let innerBorderWidth = boardParameters.boardWidth - boardParameters.widthOfBoardBorder * 2
   let innerBorderHieght = boardParameters.boardHeight - boardParameters.widthOfBoardBorder * 2
-  
+
   roundedRect(ctx, innerBorderX, innerBorderY, innerBorderWidth, innerBorderHieght, 15); // inner margin
 }
 
 
 let createWalls = (ctx) => {
 
-// walls.js will do this
+  // walls.js will do this
 
 
 
@@ -92,24 +92,24 @@ let createWalls = (ctx) => {
 
 
 
-// // box for the ghosts to spawn in
-// roundedRect(ctx, 235, 205, 115, 15, 4, FillOrStroke.Stroke)
-// roundedRect(ctx, 335, 135, 15, 70, 4, FillOrStroke.Stroke)
-// roundedRect(ctx, 235, 135, 15, 70, 4, FillOrStroke.Stroke)
+  // // box for the ghosts to spawn in
+  // roundedRect(ctx, 235, 205, 115, 15, 4, FillOrStroke.Stroke)
+  // roundedRect(ctx, 335, 135, 15, 70, 4, FillOrStroke.Stroke)
+  // roundedRect(ctx, 235, 135, 15, 70, 4, FillOrStroke.Stroke)
 
 
-// // walls
-// roundedRect(ctx, 22, 205, 170, 15, 4, FillOrStroke.Stroke);
-// roundedRect(ctx, 405, 125, 15, 100, 4, FillOrStroke.Stroke);
-// roundedRect(ctx, 205, 52, 170, 15, 4, FillOrStroke.Stroke);
-// roundedRect(ctx, 58, 75, 15, 100, 4, FillOrStroke.Stroke);
+  // // walls
+  // roundedRect(ctx, 22, 205, 170, 15, 4, FillOrStroke.Stroke);
+  // roundedRect(ctx, 405, 125, 15, 100, 4, FillOrStroke.Stroke);
+  // roundedRect(ctx, 205, 52, 170, 15, 4, FillOrStroke.Stroke);
+  // roundedRect(ctx, 58, 75, 15, 100, 4, FillOrStroke.Stroke);
 }
 
 window.onload = () => { // start of window.onload
-  
+
   let canvas = document.getElementById("canvas");
   const ctx = canvas.getContext('2d');
-  
+
   function draw() {
     var canvas = document.getElementById('canvas');
     if (canvas.getContext) {
@@ -117,11 +117,11 @@ window.onload = () => { // start of window.onload
 
       createBoardBorder(ctx);
       let path = new paths();
-      path.createPath(ctx, boardParameters, fruit);
+      path.createPath(ctx, boardParameters, fruit, wall, path);
       createWalls(ctx);
 
 
-     
+
 
       //   roundedRect(ctx, boardParameters.boardOffset - 7, boardParameters.boardOffset, boardParameters.boardWidth -5, boardParameters.boardHeight,20, 9);
       //   roundedRect(ctx, 53, 53, 49, 33, 10);
